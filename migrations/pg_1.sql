@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS board (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS list (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR (100) NOT NULL,
+    position INT NOT NULL DEFAULT 1,
+    board_id INT REFERENCES board(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS ticket (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR (100) NOT NULL,
+    position INT NOT NULL DEFAULT 1,
+    list_id INT REFERENCES list(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS comment (
+    id SERIAL PRIMARY KEY,
+    body VARCHAR (100) NOT NULL,
+    ticket_id INT REFERENCES ticket(id) ON DELETE CASCADE
+    -- TODO Timestamp created
+);
